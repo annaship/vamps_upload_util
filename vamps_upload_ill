@@ -983,6 +983,10 @@ if ( ($start eq "taxonomy") || ($start eq "sequences") || ($start eq "projectdat
     &print_out("time split --lines 1000000 --numeric-suffixes $taxesFile exports/vamps_data_cube_transfer.\n");
     system("time split --lines 1000000 --numeric-suffixes $taxesFile exports/vamps_data_cube_transfer.");
     
+    my @vamps_data_cube_transfer_files = glob "exports/vamps_data_cube_transfer.*";
+    foreach $vamps_data_cube_transfer_file (@vamps_data_cube_transfer_files) {
+        &print_out($vamps_data_cube_transfer_files . "\n");
+    }
     ExecuteLoad($taxesFile, $tmp_taxes_table);
 
 # todo:
