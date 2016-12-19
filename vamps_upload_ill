@@ -987,9 +987,11 @@ if ( ($start eq "taxonomy") || ($start eq "sequences") || ($start eq "projectdat
     
     my @vamps_data_cube_transfer_files = glob "exports/vamps_data_cube_transfer.*";
     foreach $vamps_data_cube_transfer_file (@vamps_data_cube_transfer_files) {
-        &print_out($vamps_data_cube_transfer_file . "\n");
+        if($vamps_data_cube_transfer_file =~ /^\.txt$/);
+        
+        &print_out("Uploading " . $vamps_data_cube_transfer_file . "\n");
+        ExecuteLoad($vamps_data_cube_transfer_file, $tmp_taxes_table);
     }
-    ExecuteLoad($taxesFile, $tmp_taxes_table);
 
 # todo:
     # my $update_new_taxa_name = "INSERT IGNORE INTO ? (?) SELECT distinct superkingdom FROM $tmp_taxes_table";
