@@ -979,8 +979,8 @@ if ( ($start eq "taxonomy") || ($start eq "sequences") || ($start eq "projectdat
     
     # todo: make sql file, as with sequences?
     # split vamps_data_cube_transfer.txt
-    &print_out("Split vamps_data_cube_transfer.txt");
-    &print_out("time split --lines 1000000 --numeric-suffixes $taxesFile vamps_data_cube_transfer.");
+    &print_out("\nSplit vamps_data_cube_transfer.txt\n");
+    &print_out("time split --lines 1000000 --numeric-suffixes $taxesFile vamps_data_cube_transfer.\n");
     system("time split --lines 1000000 --numeric-suffixes $taxesFile vamps_data_cube_transfer.");
     
     ExecuteLoad($taxesFile, $tmp_taxes_table);
