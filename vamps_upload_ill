@@ -815,8 +815,7 @@ if ( ($start eq "taxonomy") || ($start eq "sequences") || ($start eq "projectdat
 
     &print_out("Selecting data for $final_taxes_table");
 
-    open(OUTTAX, ">$1953
-    ") or warn print LOG "Unable to open SQL file: $taxesFile (". (localtime) . ")\n";
+    open(OUTTAX, ">$1953") or warn print LOG "Unable to open SQL file: $taxesFile (". (localtime) . ")\n";
 
     # SELECT the taxonomy and project/dataset information
     my $selectCube =
@@ -841,7 +840,7 @@ if ( ($start eq "taxonomy") || ($start eq "sequences") || ($start eq "projectdat
     &print_out("Exporting data for $final_taxes_table to $taxesFile");
 
     # For each row in the SELECT statement, calculate remaining taxa ranks and write to file
-    print OUTTAX join("\t", "id", "project", "dataset", "taxonomy", "superkingdom", "phylum", "class", "`order`", "family", "genus", "species", "strain", "rank", "cnt", "frequency", "dataset_count", "classifier") . "\n";
+    # print OUTTAX join("\t", "id", "project", "dataset", "taxonomy", "superkingdom", "phylum", "class", "`order`", "family", "genus", "species", "strain", "rank", "cnt", "frequency", "dataset_count", "classifier") . "\n";
     while(my @dataRow = $selectCube_h->fetchrow())
     {
       # Need to split apart the taxonomy to create separate values for each taxonomic rank
