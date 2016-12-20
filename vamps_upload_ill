@@ -498,7 +498,7 @@ if ($start eq "projectdataset")
 
   if ($import)
   {
-    &print_out("Inserting into $tmp_project_dataset_table");
+    &print_out("Inserting into $tmp_project_dataset_table\n");
     CreateEmpty($tmp_project_dataset_table);
     ExecuteLoad($projectDatasetFile, $tmp_project_dataset_table, 1);
 
@@ -1055,7 +1055,7 @@ if ( ($start eq "projectdataset") || ($start eq "taxonomy") || ($start eq "seque
 
   if ($import)
   {
-    &print_out("Inserting into $vampsHost.$tmp_project_desc_table");
+    &print_out("Inserting into $vampsHost.$tmp_project_desc_table\n");
     CreateEmpty($tmp_project_desc_table);
     ExecuteLoad($projectDescFile, $tmp_project_desc_table, 1);
 
