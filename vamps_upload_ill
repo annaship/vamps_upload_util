@@ -90,7 +90,7 @@ my $tblSuffix    = "_transfer";
 my $tblSuffixOld = "_previous";
 my $fileSuffix   = ".txt";
 my $subdir       = "exports/";
-my $chunk_size_reads = 500000;  # dump data to transfer files 500K records at a time FOR READS
+my chunk_size_seqs = 500000;  # dump data to transfer files 500K records at a time FOR READS
 # my $chunk_size_seqs  = 250000;  # dump data to transfer files 250K records at a time FOR SEQS
 my $do_not_analyze   = 0;
 my $test_only        = 0;
@@ -640,7 +640,7 @@ if ( ($start eq "projectdataset") || ($start eq "sequences") )
 
     # get data and put in the table
 
-    my $chunk_size_seqs  = 1;  # dump data to transfer files 1 project records at a time FOR SEQS
+    # my $chunk_size_seqs  = 1;  # dump data to transfer files 1 project records at a time FOR SEQS
 
     &print_query_out("2a) selectCountProject_int", $sourceHost." ".$selectCountProject_int);
 
