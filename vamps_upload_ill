@@ -691,7 +691,8 @@ if ( ($start eq "projectdataset") || ($start eq "sequences") )
       # &insert_chunk();
       $insert_select_chunck_seq_h->execute($from_here) or warn print LOG "Unable to execute SQL statement: $insert_select_chunck_seq.  Error: " . $insert_select_chunck_seq_h->errstr . " (" . (localtime) . ")\n" unless ($test_only == 1);
       my $end_get_reads_seq   = time;
-      &print_out("The total time of insert_chunk $from_here is ", $end_get_reads_seq - $start_get_reads_seq, "\n");
+      my $res_time = $end_get_reads_seq - $start_get_reads_seq;
+      &print_out("The total time of insert_chunk $from_here is $res_time\n");
 
       $reads_left -= $chunk_size_seqs;
       $from_here += $chunk_size_seqs;
