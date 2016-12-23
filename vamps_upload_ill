@@ -504,14 +504,14 @@ if ($start eq "projectdataset")
 
     unless($do_not_analyze)
     {
-      &print_out("Analyzing $tmp_project_dataset_table");
+      &print_out("Analyzing $tmp_project_dataset_table\n");
       AnalyzeTable($tmp_project_dataset_table);
     }
   }
 
   if ($transfer)
   {
-    &print_out("Swapping $final_project_dataset_table tables");
+    &print_out("Swapping $final_project_dataset_table tables\n");
     SwapNew($tmp_project_dataset_table, $final_project_dataset_table, $previous_project_dataset_table);
 
     # add code here to update the *NEW* (as of 2012-04-26) vamps_datasets_date table after swapping  -AAV
@@ -587,7 +587,7 @@ if ( ($start eq "projectdataset") || ($start eq "sequences") )
 
   if ($export)
   {
-    &print_out("Dumping data for $final_seqs_table");
+    &print_out("Dumping data for $final_seqs_table\n");
 
     # mysql> show global variables like "join_BUFFER_SIZE";
     # +------------------+---------+
@@ -790,14 +790,14 @@ if ( ($start eq "projectdataset") || ($start eq "sequences") )
 
     unless($do_not_analyze)
     {
-      &print_out("Analyzing vamps_sequences_transfer");
+      &print_out("Analyzing vamps_sequences_transfer\n");
       AnalyzeTable("vamps_sequences_transfer");
     }
   }
 
   if ($transfer)
   {
-    &print_out("Swapping $final_seqs_table tables");
+    &print_out("Swapping $final_seqs_table tables\n");
     SwapNew($tmp_seqs_table, $final_seqs_table, $previous_seqs_table);
   }
 } # END start = sequences
@@ -814,7 +814,7 @@ if ( ($start eq "taxonomy") || ($start eq "sequences") || ($start eq "projectdat
   if ($export)
   {
 
-    &print_out("Selecting data for $final_taxes_table");
+    &print_out("Selecting data for $final_taxes_table\n");
 
     open(OUTTAX, ">$taxesFile") or warn print LOG "Unable to open SQL file: $taxesFile (". (localtime) . ")\n";
 
@@ -838,7 +838,7 @@ if ( ($start eq "taxonomy") || ($start eq "sequences") || ($start eq "projectdat
     # this must be done in perl because the records are edited as they are moved
     #
     #######################################
-    &print_out("Exporting data for $final_taxes_table to $taxesFile");
+    &print_out("Exporting data for $final_taxes_table to $taxesFile\n");
 
     # For each row in the SELECT statement, calculate remaining taxa ranks and write to file
     # print OUTTAX join("\t", "id", "project", "dataset", "taxonomy", "superkingdom", "phylum", "class", "`order`", "family", "genus", "species", "strain", "rank", "cnt", "frequency", "dataset_count", "classifier") . "\n";
@@ -901,7 +901,7 @@ if ( ($start eq "taxonomy") || ($start eq "sequences") || ($start eq "projectdat
   #
   if ($import)
   {
-    &print_out("Inserting data into $tmp_taxes_table");
+    &print_out("Inserting data into $tmp_taxes_table\n");
 
     # vamps_data_cube_transfer
     CreateEmpty($tmp_taxes_table);
@@ -935,7 +935,7 @@ if ( ($start eq "taxonomy") || ($start eq "sequences") || ($start eq "projectdat
     # Create the summed (junk) data cube FROM the regular data cube
     #
 
-    &print_out("Creating interim summed taxa table");
+    &print_out("Creating interim summed taxa table\n");
     # vamps_junk_data_cube_transfer
     CreateEmpty($tmp_summed_taxes_table);
 
@@ -947,7 +947,7 @@ if ( ($start eq "taxonomy") || ($start eq "sequences") || ($start eq "projectdat
     #{
     my $source_table = $tmp_taxes_table;
 
-    &print_out("Loading summed taxa FROM $tmp_taxes_table to $tmp_summed_taxes_table");
+    &print_out("Loading summed taxa FROM $tmp_taxes_table to $tmp_summed_taxes_table\n");
     my @ranks_subarray; # array for building the growing list of taxonomic ranks
 
     for (my $i = 0; $i <= $#ranks; $i++)
@@ -981,7 +981,7 @@ if ( ($start eq "taxonomy") || ($start eq "sequences") || ($start eq "projectdat
     #
     # Create Distinct Taxonomy Table (vamps_taxonomy))
     #
-    &print_out("Creating $tmp_distinct_taxa_table");
+    &print_out("Creating $tmp_distinct_taxa_table\n");
     # vamps_taxonomy_transfer
     CreateEmpty($tmp_distinct_taxa_table);
     # q 5)
@@ -998,26 +998,26 @@ if ( ($start eq "taxonomy") || ($start eq "sequences") || ($start eq "projectdat
 
     unless($do_not_analyze)
     {
-      &print_out("Analyzing $tmp_taxes_table");
+      &print_out("Analyzing $tmp_taxes_table\n");
       AnalyzeTable($tmp_taxes_table);
 
-      &print_out("Analyzing $tmp_summed_taxes_table");
+      &print_out("Analyzing $tmp_summed_taxes_table\n");
       AnalyzeTable($tmp_summed_taxes_table);
 
-      &print_out("Analyzing $tmp_distinct_taxa_table");
+      &print_out("Analyzing $tmp_distinct_taxa_table\n");
       AnalyzeTable($tmp_distinct_taxa_table);
     }
   }
 
   if ($transfer)
   {
-    &print_out("Swapping $final_taxes_table tables");
+    &print_out("Swapping $final_taxes_table tables\n");
     SwapNew($tmp_taxes_table, $final_taxes_table, $previous_taxes_table);
 
-    &print_out("Swapping $final_summed_taxes_table tables");
+    &print_out("Swapping $final_summed_taxes_table tables\n");
     SwapNew($tmp_summed_taxes_table, $final_summed_taxes_table, $previous_summed_taxes_table);
 
-    &print_out("Swapping $final_distinct_taxa_table tables");
+    &print_out("Swapping $final_distinct_taxa_table tables\n");
     SwapNew($tmp_distinct_taxa_table, $final_distinct_taxa_table, $previous_distinct_taxa_table);
   }
 } # End start = taxonomy
@@ -1039,7 +1039,7 @@ if ( ($start eq "projectdataset") || ($start eq "taxonomy") || ($start eq "seque
 {
   if ($export)
   {
-    &print_out("Dumping data for $final_project_desc_table into $projectDescFile");
+    &print_out("Dumping data for $final_project_desc_table into $projectDescFile\n");
     # q 8)
     # todo: If project_name standard changed - add OR clause!!!
     my $selectProjects =
@@ -1061,14 +1061,14 @@ if ( ($start eq "projectdataset") || ($start eq "taxonomy") || ($start eq "seque
 
     unless($do_not_analyze)
     {
-      &print_out("Analyzing $tmp_project_desc_table");
+      &print_out("Analyzing $tmp_project_desc_table\n");
       AnalyzeTable($tmp_project_desc_table);
     }
   }
 
   if ($transfer)
   {
-    &print_out("Swapping $final_project_desc_table tables");
+    &print_out("Swapping $final_project_desc_table tables\n");
     SwapNew($tmp_project_desc_table, $final_project_desc_table, $previous_project_desc_table);
   }
 }
