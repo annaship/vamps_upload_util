@@ -97,8 +97,8 @@ sub count_data_in_db()
 sub count_data_in_files()
 {
   my $file_name = shift;
-  my $full_file_name = $export_dir . $file_name."_transfer";
-  
+  my $full_file_name = $export_dir . $file_name."_transfer.txt";
+
   print_twice("Rows in file(s)\t$file_name*.txt\t: ");
   my $wc_res = `cat $full_file_name* | wc -l | awk '{print \$1}'`;
   
