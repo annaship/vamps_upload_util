@@ -261,7 +261,10 @@ my $source_chimera_table = 'chimeras';
 my $user_uploads_table = "vamps_data_cube_uploads";
 
 # other
-my $sqlImportCommand = "/usr/local/mysql/bin/mysqlimport";
+# my $sqlImportCommand = "/usr/local/mysql/bin/mysqlimport";
+# /bioware/mysql-5.6.12-linux-glibc2.5-x86_64/bin/mysqlimport
+
+my $sqlImportCommand = "mysqlimport";
 
 my $export = 0;
 my $import = 0;
