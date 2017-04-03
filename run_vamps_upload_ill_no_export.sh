@@ -2,25 +2,29 @@
 #
 # Export the project and dataset information
 #
-time vamps_upload_ill -e -i -s projectdataset -stop projectdataset vamps
+echo "vamps_upload_ill -i -s projectdataset -stop projectdataset vamps"
+time vamps_upload_ill -i -s projectdataset -stop projectdataset vamps
 # Analyzing vamps_projects_datasets_transfer
 
 #
 # Export sequences table from env454 
 #
-time vamps_upload_ill -e -skip -s sequences -stop sequences vamps
+echo "vamps_upload_ill -skip -s sequences -stop sequences vamps"
+time vamps_upload_ill -skip -s sequences -stop sequences vamps
 # Analyzing vamps_sequences_transfer
 
 #
 # Import sequences table into VAMPS
 #
+echo "vamps_upload_ill -skip -s sequences -stop sequences vamps"
 time vamps_upload_ill -i -skip -s sequences -stop sequences vamps &
 # Analyzing vamps_sequences_transfer
 
 #
 # Export data taxonomy tables
 #
-time vamps_upload_ill -e -i -skip -s taxonomy -stop taxonomy vamps &
+echo "vamps_upload_ill -i -skip -s taxonomy -stop taxonomy vamps &"
+time vamps_upload_ill -i -skip -s taxonomy -stop taxonomy vamps &
 # sleep 300
 # Analyzing vamps_data_cube_transfer
 # Analyzing vamps_junk_data_cube_transfer
@@ -29,7 +33,8 @@ time vamps_upload_ill -e -i -skip -s taxonomy -stop taxonomy vamps &
 #
 # Export the reads and anything else after
 #
-time vamps_upload_ill -e -i -skip -s reads vamps &
+echo "vamps_upload_ill -i -skip -s reads vamps &"
+time vamps_upload_ill -i -skip -s reads vamps &
 # Analyzing vamps_export_transfer
 # Analyzing vamps_projects_info_transfer
 
@@ -50,7 +55,7 @@ time check_vamps_upload.pl -t
 
 if [ "$CHECK_STATUS" == "" ]; then
   echo "run vamps_upload_ill to new tables"
-  time vamps_upload_ill -e -i -s norm_tables vamps
+  time vamps_upload_ill -i -s norm_tables vamps
 fi
 
 #echo "rename norm tansfer tables"
