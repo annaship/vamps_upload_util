@@ -250,7 +250,8 @@ my $source_chimera_table = 'chimeras';
 my $user_uploads_table = "vamps_data_cube_uploads";
 
 # other
-my $sqlImportCommand = "/usr/local/mysql/bin/mysqlimport";
+# my $sqlImportCommand = "/usr/local/mysql/bin/mysqlimport";
+my $sqlImportCommand = "mysqlimport";
 
 my $export = 0;
 my $import = 0;
