@@ -24,7 +24,8 @@ class MyConnection:
           self.conn   = MySQLdb.connect(host=host, db=db, read_default_file="~/.my.cnf")
           self.cursor = self.conn.cursor()
                  
-      except MySQLdb.Error, e:
+      except MySQLdb.Error:
+          e = sys.exc_info()[1]          
           print("Error %d: %s" % (e.args[0], e.args[1]))
           raise
       except:                       # catch everything
@@ -157,13 +158,15 @@ class SqlUtil:
         try:
           shared.my_conn.cursor.execute (rename_query)
           shared.my_conn.conn.commit()
-        except MySQLdb.OperationalError, e: 
+        except MySQLdb.OperationalError: 
+            e = sys.exc_info()[1]
             print(repr(e))
-        except Exception, e: 
-          print(repr(e))
-          print("Unexpected:")         # handle unexpected exceptions
-          print(sys.exc_info()[0])     # info about curr exception (type,value,traceback)
-          raise
+        except Exception: 
+            e = sys.exc_info()[1]
+            print(repr(e))
+            print("Unexpected:")         # handle unexpected exceptions
+            print(sys.exc_info()[0])     # info about curr exception (type,value,traceback)
+            raise
 
     def drop_tables(self, table_list = [], suffix = "_previous"):
       # print(type(table_list))
