@@ -1,8 +1,15 @@
-import MySQLdb
 import sys
 import shared #use shared to call connection from outside of the module
 from pprint import pprint
-
+try:
+    import pymysql as mysql
+except NameError:
+    import MySQLdb as mysql
+except:
+    e = sys.exc_info()[1]
+    print(e)
+    raise
+    
 class MyConnection:
   """
   Connection to env454
@@ -21,10 +28,10 @@ class MyConnection:
           print("host = " + str(host) + ", db = "  + str(db))
           print("=" * 40)
 
-          self.conn   = MySQLdb.connect(host=host, db=db, read_default_file="~/.my.cnf")
+          self.conn   = mysql.connect(host=host, db=db, read_default_file="~/.my.cnf")
           self.cursor = self.conn.cursor()
                  
-      except MySQLdb.Error:
+      except mysql.Error:
           e = sys.exc_info()[1]          
           print("Error %d: %s" % (e.args[0], e.args[1]))
           raise
@@ -158,7 +165,7 @@ class SqlUtil:
         try:
           shared.my_conn.cursor.execute (rename_query)
           shared.my_conn.conn.commit()
-        except MySQLdb.OperationalError: 
+        except mysql.OperationalError: 
             e = sys.exc_info()[1]
             print(repr(e))
         except Exception: 
