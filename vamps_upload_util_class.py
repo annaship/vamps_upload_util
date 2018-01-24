@@ -17,24 +17,24 @@ class MyConnection:
       self.lastrowid = None
               
       try:
-          print "=" * 40
-          print "host = " + str(host) + ", db = "  + str(db)
-          print "=" * 40
+          print("=" * 40)
+          print("host = " + str(host) + ", db = "  + str(db))
+          print("=" * 40)
 
           self.conn   = MySQLdb.connect(host=host, db=db, read_default_file="~/.my.cnf")
           self.cursor = self.conn.cursor()
                  
       except MySQLdb.Error, e:
-          print "Error %d: %s" % (e.args[0], e.args[1])
+          print("Error %d: %s" % (e.args[0], e.args[1]))
           raise
       except:                       # catch everything
-          print "Unexpected:"         # handle unexpected exceptions
-          print sys.exc_info()[0]     # info about curr exception (type,value,traceback)
+          print("Unexpected:")        # handle unexpected exceptions
+          print(sys.exc_info()[0])     # info about curr exception (type,value,traceback)
           raise                       # re-throw caught exception   
 
   def close(self):
     if self.cursor:
-      # print dir(self.cursor)
+      # print(dir(self.cursor))
       self.cursor.close()
       self.conn.close()
       
@@ -56,7 +56,7 @@ class SqlUtil:
         
     # compare with previous:
     def compare_res_w_previous(self, table_list = ["vamps_data_cube", "vamps_junk_data_cube", "vamps_projects_datasets", "vamps_sequences", "vamps_taxonomy"]):
-      # print type(table_list)
+      # print(type(table_list))
       for table_name in table_list:
         res1 = ""
         res_previous = ""
@@ -74,17 +74,17 @@ class SqlUtil:
         res1 = str(res1_f[0][0])
         res_previous = str(res_previous_f[0][0])
         text0 = "\n\nprevious_name = "+previous_name+" size = "+res_previous+"; table_name = "+table_name+" size = " + res1
-        print (text0)
+        print(text0)
         t1 = int(res1) - int(res_previous)
         text01 = "(res1 - res_previous): current is bigger then previous for "+str(t1)
         if res1 < res_previous:
           text = "Please check vamps upload for this table, current is bigger then previous: "+previous_name+": "+res1+" < "+res_previous+"!"
-          print (text)
+          print(text)
         else:
-          print ("Hurray! "+table_name+": "+res_previous+" < "+res1)
+          print("Hurray! "+table_name+": "+res_previous+" < "+res1)
 
     def compare_interm_w_current(self, table_list = ["vamps_data_cube", "vamps_junk_data_cube", "vamps_projects_datasets", "vamps_sequences", "vamps_taxonomy"]):
-      # print type(table_list)
+      # print(type(table_list))
       for table_name in table_list:
         res1 = ""
         res_intermediate = ""
@@ -102,14 +102,14 @@ class SqlUtil:
         res1 = str(res1_f[0][0])
         res_intermediate = str(res_intermediate_f[0][0])
         text0 = "\n\nintermediate_name = "+intermediate_name+" size = "+res_intermediate+"; table_name = "+table_name+" size = " + res1
-        print (text0)
+        print(text0)
         t1 = int(res1) - int(res_intermediate)
         text01 = "(res1 - res_intermediate): current is bigger then intermediate for "+str(t1)
         if int(res1) > int(res_intermediate):
           text = "Please check vamps upload for this table, current is bigger then intermediate: "+intermediate_name+": "+res1+" > "+res_intermediate+"!"
-          print (text)
+          print(text)
         else:
-          print ("Hurray! "+table_name+": "+res_intermediate+" > "+res1)
+          print("Hurray! "+table_name+": "+res_intermediate+" > "+res1)
 
     # from sql_tables_class import MyConnection
     # import sql_tables_client
@@ -136,7 +136,7 @@ class SqlUtil:
           HAVING length(taxonomy) - length(replace(taxonomy,';','')) >= %s""" % (ranks_list, i, ranks_list, i)
         shared.my_conn.cursor.execute(insertQuery)
         shared.my_conn.conn.commit()
-        print insertQuery
+        print(insertQuery)
     
     # previous (previous current)
     # current 
@@ -153,27 +153,27 @@ class SqlUtil:
         from_table_name = table_name + suffix_from
         to_table_name   = table_name + suffix_to
         rename_query    = "RENAME TABLE %s TO %s" % (from_table_name, to_table_name);
-        print rename_query + "\n"
+        print(rename_query + "\n")
         try:
           shared.my_conn.cursor.execute (rename_query)
           shared.my_conn.conn.commit()
         except MySQLdb.OperationalError, e: 
-            print repr(e)
+            print(repr(e))
         except Exception, e: 
-          print repr(e)
-          print "Unexpected:"         # handle unexpected exceptions
-          print sys.exc_info()[0]     # info about curr exception (type,value,traceback)
+          print(repr(e))
+          print("Unexpected:")         # handle unexpected exceptions
+          print(sys.exc_info()[0])     # info about curr exception (type,value,traceback)
           raise
 
     def drop_tables(self, table_list = [], suffix = "_previous"):
-      # print type(table_list)
+      # print(type(table_list))
       # [shared.my_conn.cursor.execute ("DROP TABLE IF EXISTS %s" % (table_name + suffix)) for table_name in table_list]
       shared.my_conn.cursor.execute ("SET foreign_key_checks = 0;")
       shared.my_conn.conn.commit()
       for table_name in table_list:
         table_name_to_drop = table_name + suffix
         drop_query = "DROP TABLE IF EXISTS %s" % (table_name_to_drop)
-        # print drop_query
+        # print(drop_query)
         shared.my_conn.cursor.execute (drop_query)
         shared.my_conn.conn.commit()
       shared.my_conn.cursor.execute ("SET foreign_key_checks = 1;")
@@ -182,8 +182,8 @@ class SqlUtil:
     def add_suffix(self, suffix, table_list):
       suff_table_names = {}
       suff_table_names = dict((table_name, table_name + suffix) for table_name in table_list)
-      # print suff_table_names['new_project']         
-      # print pprint(suff_table_names)
+      # print(suff_table_names['new_project'])
+      # print(pprint(suff_table_names))
       return suff_table_names
 
     def update_intermediate_from_illumina_transfer(self, intermediate_names, transfer_names):      
@@ -279,11 +279,11 @@ class SqlUtil:
         """ % (intermediate_names['new_summed_data_cube'], intermediate_names['new_project'], intermediate_names['new_dataset'], intermediate_names['new_taxon_string'], intermediate_names['new_project_dataset'])
 
       query_names_exec = [ insert_vamps_data_cube_q, insert_vamps_junk_data_cube_q, insert_vamps_projects_datasets_q, insert_vamps_projects_info_q, insert_vamps_sequences_q, insert_vamps_taxonomy_q, insert_new_superkingdom_q, insert_new_phylum_q, insert_new_class_q, insert_new_orderx_q, insert_new_family_q, insert_new_genus_q, insert_new_species_q, insert_new_strain_q, insert_new_taxon_string_q, insert_new_user_q, insert_new_contact_q, insert_new_user_contact_q, insert_new_project_q, insert_new_taxonomy_q, insert_new_dataset_q, insert_new_project_dataset_q, insert_new_summed_data_cube_q ]
-      # print """SSS1: insert ill data\n"""
+      # print("""SSS1: insert ill data\n""")
       for query_name in query_names_exec:
-        print query_name
+        print(query_name)
         shared.my_conn.cursor.execute(query_name)
         shared.my_conn.conn.commit()
         
-      # print [(query_name + '\n') for query_name in query_names_exec]
+      # print([(query_name + '\n') for query_name in query_names_exec])
       # [shared.my_conn.cursor.execute (query_name) in query_names_exec]
